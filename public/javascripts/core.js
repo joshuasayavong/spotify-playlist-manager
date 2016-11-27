@@ -14,5 +14,5 @@ app.controller('PlaylistController', function Playlistcontroller($scope) {
       snippet: 'The Next, Next Generation tablet.'
     }
   ];
-  $scope.playlist="Hullo"
+  $scope.playlist="Hullo";
 });
