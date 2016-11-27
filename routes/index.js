@@ -44,25 +44,11 @@ router.get('/', function(req, res, next) {
 	console.log(req.query);
 
 	if (isAuthenticated(req)) {
-		res.render('hub', { title: 'Logged in!'});
+		res.render('dashboard', { title: 'Logged in!'});
 	} else {
 		res.render('index', { title: 'Login pls' });
 	}
 
 });
-
-
-router.get('/login', function (req, res, next) {
-
-	var authorizeUrl = "https://accounts.spotify.com/authorize";
-	var redirect_uri = "http://" + req.headers.host + "/";
-	var keys = jsonReader.getJson('keys.json'); 
-	var client_id = keys.client_id;
-	
-	var params = { client_id: client_id, redirect_uri: redirect_uri, response_type: "code"};
-	var url = authorizeUrl + "/?" + querystring.stringify(params);
-	res.redirect(url);
-});
-
 
 module.exports = router;
