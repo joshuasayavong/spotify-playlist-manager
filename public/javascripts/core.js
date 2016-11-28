@@ -10,7 +10,6 @@ app.controller('PlaylistController', ['$scope', '$cookies', '$window', '$locatio
     function Playlistcontroller($scope, $cookies, $window, $location, $http) {
         $scope.playlist = "Hullo";
         $scope.header1 = "Spotify Playlist Manager";
-
         $scope.loggedIn = $cookies.getObject('SpotifyToken') != null;
 
         if ($scope.loggedIn) {
@@ -26,7 +25,7 @@ app.controller('PlaylistController', ['$scope', '$cookies', '$window', '$locatio
         $scope.newPlaylist = "spotify-playlist-manager";
         $scope.createPlaylist = function() {
             var url = ($location.protocol() + "://" + $location.host() + ":" + $location.port() + $location.path()).toString() + "createplaylist";
-            var postdata = { name: $scope.newPlaylist, token: $cookies.getObject('SpotifyToken') };
+            var postdata = { name: $scope.newPlaylist, token: $cookies.getObject('SpotifyToken'), playlist: $scope.playlists.selected };
             var config = { url: url, method: 'POST', data: postdata };
             console.log(url);
             $http(config).then(
@@ -39,6 +38,25 @@ app.controller('PlaylistController', ['$scope', '$cookies', '$window', '$locatio
                 }
             );
         }
+
+        $scope.getPlaylists = function () {
+            var url = ($location.protocol() + "://" + $location.host() + ":" + $location.port() + $location.path()).toString() + "getplaylists";
+            var postdata = { token: $cookies.getObject('SpotifyToken') };
+            var config = { url: url, method: 'POST', data: postdata };
+            console.log(url);
+            $http(config).then(
+                function(res) {
+                    console.log(res);
+                    $scope.playlists = { options: res.data.playlists.items};
+                },
+                function(res) {
+                    console.log(res);
+                }
+            );
+
+        };
+
+        $scope.getPlaylists();
 
 
     }
@@ -98,3 +116,4 @@ app.controller('AuthController', ['$scope', '$http', '$cookies', '$location', '$
 
     }
 ]);
+

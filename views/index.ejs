@@ -25,25 +25,49 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-        <li ng-show="!loggedIn"><a ng-click="logIn()" href="/login">Login</a></li>
-        <li ng-show="loggedIn"><a ng-click="logOut()" href="/">Logout</a></li>
+          <li ng-show="!loggedIn"><a ng-click="logIn()" href="/login">Login</a></li>
+          <li ng-show="loggedIn"><a ng-click="logOut()" href="/">Logout</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
   <div class="container" ng-controller="PlaylistController">
-    <hr>
-    <h1>{{header1}}!</h1>
-    <br>
-    {{text}}
-    <button ng-show="!loggedIn" onClick="javascript:window.location.href='/login'">Login</button>
-    <button ng-show="loggedIn" ng-click="logOut()">Logout</button>
-    <div ng-show="loggedIn">
-      List playlists here
-      Create Playlist
-      <br>
-      <button ng-show="loggedIn" ng-click="createPlaylist()">Create Playlist</button>
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>Welcome to the {{header1}}</h1>
+      </div>
+      <div ng-show="!loggedIn" class="col-xs-12">
+        <p>Please log in</p>
+      </div>
     </div>
+    <div ng-show="loggedIn">
+        <div class="row">
+        <div class="col-xs-12">
+        <p>Choose a playlist to transfer: </p>
+        </div>
+        </div>
+      <div class="row"> 
+      <div class="col-xs-6">
+        <select ng-model="playlists.selected">
+          <option ng-repeat="option in playlists.options" >{{option.name}}</option>
+        </select>
+      </div>
+      <div class="col-xs-6">
+          <p>You have selected: {{playlists.selected}}</p>
+      </div>
+
+
+      </div>
+      <div class="row">
+           <div class="col-xs-12">
+      <button class="btn btn-default" ng-click="createPlaylist()">Create Playlist</button>
+    </div>
+      </div>
+
+
   </div>
+
+</div>
 </body>
 </html>
+
