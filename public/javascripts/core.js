@@ -6,14 +6,58 @@ app.config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
 }]);
 
-app.controller('PlaylistController', ['$scope', '$cookies', '$window',
-    function Playlistcontroller($scope, $cookies, $window) {
+app.controller('PlaylistController', ['$scope', '$cookies', '$window', '$location', '$http',
+    function Playlistcontroller($scope, $cookies, $window, $location, $http) {
         $scope.playlist = "Hullo";
         $scope.header1 = "Spotify Playlist Manager";
-        if ($cookies.getObject('SpotifyToken') != null) {
+
+        $scope.loggedIn = $cookies.getObject('SpotifyToken') != null;
+
+        if ($scope.loggedIn) {
+            console.log($cookies.getObject('SpotifyToken'));
+            $scope.text = "LOGGED IN!";
+        }
+
+        $scope.logOut = function() {
+            $cookies.remove('SpotifyToken');
+            $window.location.replace('/');
+        };
+
+        $scope.newPlaylist = "spotify-playlist-manager";
+        $scope.createPlaylist = function() {
+            var url = ($location.protocol() + "://" + $location.host() + ":" + $location.port() + $location.path()).toString() + "createplaylist";
+            var postdata = { name: $scope.newPlaylist, token: $cookies.getObject('SpotifyToken') };
+            var config = { url: url, method: 'POST', data: postdata };
+            console.log(url);
+            $http(config).then(
+                function(res) {
+                    console.log("Playlist created!");
+                    console.log(res);
+                },
+                function(res) {
+                    console.log(res);
+                }
+            );
+        }
+
+
+    }
+]);
+
+app.controller('NavController', ['$scope', '$cookies', '$window',
+    function NavController($scope, $cookies, $window) {
+        $scope.playlist = "Hullo";
+        $scope.loggedIn = $cookies.getObject('SpotifyToken') != null;
+
+        if ($scope.loggedIn) {
             console.log($cookies.getObject('access_token'));
             $scope.text = "LOGGED IN!";
         }
+
+        $scope.logIn = function() {
+            $window.location.replace('/login');
+        }
+
         $scope.logOut = function() {
             $cookies.remove('SpotifyToken');
             $window.location.replace('/');

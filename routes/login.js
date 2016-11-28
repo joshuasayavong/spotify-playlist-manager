@@ -23,7 +23,6 @@ router.get('/verified', function (req, res, next) {
 	res.render('verifycallback');
 });
 
-
 router.post('/verified', function (req, res, next) {
 	var redirect_uri = "http://" + req.headers.host + "/login/verified/";
 	var params = {code: req.body.code, grant_type:"authorization_code", redirect_uri : redirect_uri};
