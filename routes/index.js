@@ -38,30 +38,42 @@
 	    });
 	}
 
-	function transferSongs(user, oldPlaylist, newPlaylist, access_token) {
+	function transferSongs(user, oldPlaylist, newPlaylist, access_token, trackids) {
+		console.log("newPlaylist");
+		console.log(newPlaylist);
+		var playlistId = JSON.parse(newPlaylist).id;
+		console.log(playlistId);
+		console.log("access-token:")
+		console.log(access_token);
+		console.log("TRANSFERING SONGS");
 	            var options = {
-	                url: "https://api.spotify.com/v1/users/" + user.id + "/playlists/" + oldPlaylist.id +"/tracks",
+	                url: "https://api.spotify.com/v1/users/" + oldPlaylist.owner.id + "/playlists/" + oldPlaylist.id +"/tracks",
 	                headers: {
-	                    'Authorization': 'Bearer ' + access_token
+	                    'Authorization': 'Bearer ' + access_token,
+	                    'Content-Type': 'application.json'
 	                }
 	            };
 	            console.log("Options below:");
 	            console.log(options);
 	            request.get(options, function(error, response, body) {
 	                if (body) {
-	                    console.log(body);
+	                    //console.log(body);
 	                }
 	                if (response) {
 	                	console.log("Got tracks list");
-	                    console.log(response.body);
-	                    var tracks = []
-	                    response.body.items.forEach(function (element) {
-	                    	tracks.append(element.track.uri);
-	                    });
+	                    //console.log(response.body.items);
+	                    var tracks = [];
+	                    //var t = (response.body).items;
+	                    //console.log(t);
+	                    //t.forEach(function (element) {
+	                    //	console.log(element.name);
+	                    //	tracks.append(element.track.uri);
+	                    //});
+
 	            var options2 = {
-	                url: 'https://api.spotify.com/v1/users/' + user.id + '/playlists/' + newPlaylist.id + '/tracks',
+	                url: 'https://api.spotify.com/v1/users/' + user.id + '/playlists/' + playlistId + '/tracks',
 	                body: JSON.stringify({
-	                    uris: tracks
+	                    uris: trackids
 	                }),
 	                headers: {
 	                    'Authorization': 'Bearer ' + access_token,
@@ -91,7 +103,7 @@
 
 	            });
 
-	}
+	};
 
 	/* GET home page. */
 	router.get('/', function(req, res, next) {
@@ -145,7 +157,8 @@
 	                }
 	                if (response2) {
 
-	                    transferSongs(response.body, originalPlaylist, response2.body, access_token)
+	                	console.log("got player");
+	                    transferSongs(response.body, originalPlaylist, response2.body, access_token, req.body.songs);
 	                    res.send(response2.body);
 	                }
 	                if (error2) {

@@ -15,7 +15,7 @@
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>  
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
@@ -48,8 +48,7 @@
         </div>
       <div class="row"> 
       <div class="col-xs-6">
-        <select ng-model="playlists.selected">
-          <option ng-repeat="option in playlists.options" >{{option.name}}</option>
+        <select ng-model="playlists.selected" ng-options="option.name for option in playlists.options track by option.id" ng-click="getTracks()">
         </select>
       </div>
       <div class="col-xs-6">
