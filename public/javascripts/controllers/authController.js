@@ -1,4 +1,7 @@
 define([], function() {
+
+    var ngInjections = ['$scope','$http', '$cookies', '$location', '$window'];
+
     function authController($scope, $http, $cookies, $location, $window) {
         var query = $location.search();
 
@@ -23,8 +26,8 @@ define([], function() {
                 console.log(res);
             }
         );
-
-  authController.$inject=['$scope','$http', '$cookies', '$location', '$window'];
+    };
+  authController.$inject=ngInjections;
 
   return authController;
-}});
+});

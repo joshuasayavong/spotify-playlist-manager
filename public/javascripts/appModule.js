@@ -1,11 +1,15 @@
 define([
+        'require',
+        'angular',
+        'angular-cookies',
         'controllers/authController',
         'controllers/playlistController',
         'controllers/navController'
     ],
 
-    function(authController, playlistController, navController) {
+    function(require, angular, ngCookies, authController, playlistController, navController) {
         var app = angular.module('myApp', ['ngCookies']);
+        
         app.config(['$locationProvider', function($locationProvider) {
             // In order to get the query string from the
             // $location object, it must be in HTML5 mode.
@@ -18,5 +22,5 @@ define([
 
         app.controller('NavController', navController);
         app.controller('AuthController', authController);
-        return angular.bootstrap(document, ['myApp']);
+        return app;
     });

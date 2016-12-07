@@ -2,13 +2,10 @@
 <html>
 <head>
   <base href="/">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script><!-- load angular -->
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" crossorigin="anonymous">
   <script data-main="javascripts/core" src="javascripts/require.js"></script>
 </head>
-<body ng-app="myApp" >
+<body>
   <nav class="navbar navbar-default" ng-controller="NavController">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -41,30 +38,38 @@
       </div>
     </div>
     <div ng-show="loggedIn">
-        <div class="row">
-        <div class="col-xs-12">
-        <p>Choose a playlist to transfer: </p>
-        </div>
-        </div>
-      <div class="row"> 
-      <div class="col-xs-6">
-        <select ng-model="playlists.selected" ng-options="option.name for option in playlists.options track by option.id" ng-click="getTracks()">
-        </select>
-      </div>
-      <div class="col-xs-6">
-          <p>You have selected: {{playlists.selected}}</p>
-      </div>
 
-
-      </div>
-      <div class="row">
-           <div class="col-xs-12">
-      <button class="btn btn-default" ng-click="createPlaylist()">Create Playlist</button>
+    <div class="row">
+     <div class="col-xs-12">
+      <input type="text" class="form-control" ng-model = "playlists.newPlaylist"></input>
     </div>
+  </div>
+        <div class="row">
+       <div class="col-xs-12">
+        <button class="btn btn-default" ng-click="createPlaylist()">Create Playlist</button>
       </div>
+      
+    </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <p>Choose a playlist to transfer: </p>
+    </div>
+  </div>
+  <div class="row"> 
+    <div class="col-xs-6">
+      <select ng-model="playlists.selected" ng-options="option.name for option in playlists.options track by option.id" ng-click="getTracks()">
+      </select>
+    </div>
+    <div class="col-xs-6">
+      <p>You have selected: {{playlists.selected.name}}</p>
+    </div>
 
 
   </div>
+
+
+
+</div>
 
 </div>
 </body>

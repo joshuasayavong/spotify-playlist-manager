@@ -1,5 +1,7 @@
 define([], function() {
 
+    var ngInjections = ['$scope',  '$cookies', '$window', '$location', '$http'];
+
     function playlistController($scope, $cookies, $window, $location, $http) {
         $scope.playlist = "Hullo";
         $scope.header1 = "Spotify Playlist Manager";
@@ -88,7 +90,7 @@ define([], function() {
 
     }
 
-    playlistController.$inject = ['$scope', '$http', '$cookies', '$location', '$window'];
+    playlistController.$inject = ngInjections;
 
     return playlistController;
 });

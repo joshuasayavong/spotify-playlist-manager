@@ -1,5 +1,7 @@
 define([], function() {
     
+    var ngInjections = ['$scope', '$cookies', '$window'];
+
     function navController($scope, $cookies, $window) {
         $scope.playlist = "Hullo";
         $scope.loggedIn = $cookies.getObject('SpotifyToken') != null;
@@ -19,7 +21,7 @@ define([], function() {
         }
     }
 
-    navController.$inject = ['$scope', '$cookies', '$window'];
+    navController.$inject = ngInjections;
 
     return navController;
 });
