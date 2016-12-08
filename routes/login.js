@@ -10,7 +10,8 @@ router.get('/', function (req, res, next) {
 
 	var authorizeUrl = "https://accounts.spotify.com/authorize";
 	var keys = jsonReader.getJson('keys.json'); 
-	if(keys){
+	if(process.env.NODE_ENV != 'production'){
+	var keys = jsonReader.getJson('keys.json'); 
 	var client_id = keys.client_id;
 	var client_secret = keys.client_secret;
 	}
@@ -35,8 +36,9 @@ router.post('/verified', function (req, res, next) {
 	var params = {code: req.body.code, grant_type:"authorization_code", redirect_uri : redirect_uri};
 	console.log(req.body);
 	console.log(params);
+	
+	if(process.env.NODE_ENV != 'production'){
 	var keys = jsonReader.getJson('keys.json'); 
-	if(keys){
 	var client_id = keys.client_id;
 	var client_secret = keys.client_secret;
 	}
