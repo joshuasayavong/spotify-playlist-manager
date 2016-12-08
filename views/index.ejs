@@ -31,7 +31,7 @@
   <div class="container" ng-controller="PlaylistController">
     <div class="row">
       <div class="col-xs-12">
-        <h1>Welcome to the {{header1}}</h1>
+        <h1>{{header1}}</h1>
       </div>
       <div ng-show="!loggedIn" class="col-xs-12">
         <p>Please log in</p>
@@ -40,19 +40,16 @@
     <div ng-show="loggedIn">
 
     <div class="row">
-     <div class="col-xs-12">
-      <input type="text" class="form-control" ng-model = "playlists.newPlaylist"></input>
+     <div class="col-xs-8">
+      <input type="text" class="form-control" ng-model = "newPlaylist"></input>
     </div>
-  </div>
-        <div class="row">
-       <div class="col-xs-12">
+       <div class="col-xs-4">
         <button class="btn btn-default" ng-click="createPlaylist()">Create Playlist</button>
       </div>
-      
     </div>
   <div class="row">
     <div class="col-xs-12">
-      <p>Choose a playlist to transfer: </p>
+      <h4>Choose a playlist to transfer:</h4>
     </div>
   </div>
   <div class="row"> 
@@ -61,13 +58,18 @@
       </select>
     </div>
     <div class="col-xs-6">
+    <div class="row">
+
       <p>You have selected: {{playlists.selected.name}}</p>
     </div>
+      <div class="row" style="height: 500px !important; overflow-y: scroll;">
+      <ul class="list-group">
+        <li ng-repeat="item in playlists.selectedtracks" class="list-group-item">{{item.track.name}} by <span ng-repeat="artist in item.track.artists">{{artist.name}}</span></li>
+      </ul>
 
-
+      </div class="row">
+    </div>
   </div>
-
-
 
 </div>
 

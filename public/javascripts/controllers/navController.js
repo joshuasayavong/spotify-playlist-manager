@@ -1,24 +1,19 @@
 define([], function() {
     
-    var ngInjections = ['$scope', '$cookies', '$window'];
+    var ngInjections = ['$scope', 'navService'];
 
-    function navController($scope, $cookies, $window) {
+    function navController($scope, navService) {
         $scope.playlist = "Hullo";
-        $scope.loggedIn = $cookies.getObject('SpotifyToken') != null;
 
-        if ($scope.loggedIn) {
-            console.log($cookies.getObject('access_token'));
+        if (navService.isLoggedIn()) {
             $scope.text = "LOGGED IN!";
         }
 
-        $scope.logIn = function() {
-            $window.location.replace('/login');
-        }
+        $scope.logIn = navService.logIn;
 
-        $scope.logOut = function() {
-            $cookies.remove('SpotifyToken');
-            $window.location.replace('/');
-        }
+        $scope.logOut = navService.logOut;
+
+        $scope.loggedIn=navService.isLoggedIn();
     }
 
     navController.$inject = ngInjections;

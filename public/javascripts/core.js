@@ -22,7 +22,7 @@ require.config({
 
 define(['angular', 'appModule'], function (angular, app) {
     'use strict';
-
+    
     if (document.readyState === 'interactive' || document.readyState === 'complete') {
         angular.bootstrap(document.documentElement, [app.name]);
     } else {
