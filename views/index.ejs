@@ -62,9 +62,9 @@
 
       <p>You have selected: {{playlists.selected.name}}</p>
     </div>
-      <div class="row" style="height: 500px !important; overflow-y: scroll;">
+      <div class="row" style="height: 500px !important; overflow-y: auto;">
       <ul class="list-group">
-        <li ng-repeat="item in playlists.selectedtracks" class="list-group-item">{{item.track.name}} by <span ng-repeat="artist in item.track.artists">{{artist.name}}</span></li>
+        <li ng-repeat="item in playlists.selectedtracks" class="list-group-item">{{item.track.name}} by <span ng-repeat="artist in item.track.artists">{{artist.name }}</span></li>
       </ul>
 
       </div class="row">
