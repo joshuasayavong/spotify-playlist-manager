@@ -10,7 +10,14 @@ router.get('/', function (req, res, next) {
 
 	var authorizeUrl = "https://accounts.spotify.com/authorize";
 	var keys = jsonReader.getJson('keys.json'); 
+	if(keys){
 	var client_id = keys.client_id;
+	var client_secret = keys.client_secret;
+	}
+	else {
+		var client_id = process.env.client_id;
+		var client_secret = process.env.client_secret;
+	}
 	var scopes = "playlist-modify-public playlist-modify-private"
 	var redirect_uri = "http://" + req.headers.host + "/login/verified/";
 	var params = { client_id: client_id, redirect_uri: redirect_uri, response_type: "code", scope: scopes};
@@ -29,9 +36,14 @@ router.post('/verified', function (req, res, next) {
 	console.log(req.body);
 	console.log(params);
 	var keys = jsonReader.getJson('keys.json'); 
+	if(keys){
 	var client_id = keys.client_id;
 	var client_secret = keys.client_secret;
-
+	}
+	else {
+		var client_id = process.env.client_id;
+		var client_secret = process.env.client_secret;
+	}
 	var authOptions = {
       url: 'https://accounts.spotify.com/api/token',
       form: {
