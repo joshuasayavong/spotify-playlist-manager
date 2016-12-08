@@ -36,6 +36,7 @@ define([], function() {
 
         $scope.createPlaylist = function(){ 
             playlistService.createPlaylist($scope.newPlaylist, $scope.playlists.selected, $scope.playlists.selectedtracks);
+            $window.location.replace('/');
         };
 
         $scope.getPlaylists = function () { 
