@@ -9,7 +9,6 @@ var jsonReader = require('../jsonReader');
 router.get('/', function (req, res, next) {
 
 	var authorizeUrl = "https://accounts.spotify.com/authorize";
-	var keys = jsonReader.getJson('keys.json'); 
 	if(process.env.NODE_ENV != 'production'){
 	var keys = jsonReader.getJson('keys.json'); 
 	var client_id = keys.client_id;
