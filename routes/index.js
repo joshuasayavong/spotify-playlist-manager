@@ -3,6 +3,7 @@ var router = express.Router();
 var request = require('request');
 const querystring = require('querystring');
 var jsonReader = require('../jsonReader');
+var spotifyapi = require('../spotifyapi');
 
 function isAuthenticated(req) {
     var redirect = "http://" + req.headers.host + "/"
@@ -10,41 +11,17 @@ function isAuthenticated(req) {
     if (req.query.code) {
         return true;
     }
-    
+
     return false;
 }
 
-function getToken(code, redirect_uri) {
 
-    var tokenUrl = "https://accounts.spotify.com/api/token";
-    var params = { grant_type: "authorization_code", code: code, redirect_uri: redirect_uri };
-    var url = tokenUrl + "/?" + querystring.stringify(params);
-
-    request(tokenUrl, function(error, response, body) {
-        //Check for error
-        if (error) {
-            return console.log('Error:', error);
-        }
-
-        //Check for right status code
-        if (response.statusCode !== 200) {
-            return console.log('Invalid Status Code Returned:', response.statusCode);
-        }
-
-        //All is good. Print the body
-        console.log(body); // Show the HTML for the Modulus homepage.
-
-    });
-}
 
 function transferSongs(user, oldPlaylist, newPlaylist, access_token, trackids) {
-    console.log("newPlaylist");
-    console.log(newPlaylist);
+
+
     var playlistId = JSON.parse(newPlaylist).id;
-    console.log(playlistId);
-    console.log("access-token:")
-    console.log(access_token);
-    console.log("TRANSFERING SONGS");
+
     var options = {
         url: "https://api.spotify.com/v1/users/" + oldPlaylist.owner.id + "/playlists/" + oldPlaylist.id + "/tracks",
         headers: {
@@ -138,10 +115,13 @@ router.post('/createplaylist', function(req, res, next) {
         }
         if (response) {
             var userId = response.body.id
+            var playlistName = "No Name";
+            if (req.body.name)
+            	playlistName = req.body.name;
             var options2 = {
                 url: 'https://api.spotify.com/v1/users/' + userId + '/playlists',
                 body: JSON.stringify({
-                    name: req.body.name
+                    name: playlistName
                 }),
                 headers: {
                     'Authorization': 'Bearer ' + access_token,

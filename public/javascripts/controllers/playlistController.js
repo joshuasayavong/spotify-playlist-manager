@@ -8,8 +8,9 @@ define([], function() {
         $scope.loggedIn = $cookies.getObject('SpotifyToken') != null;
         
         $scope.updatePlaylists = function(res) {
-            console.log(res);
+            if(res.data.playlists){
             $scope.playlists = { options: res.data.playlists.items };
+            }
         };
 
         $scope.displayError = function(res) {
@@ -23,7 +24,6 @@ define([], function() {
         }
 
         if ($scope.loggedIn) {
-            console.log($cookies.getObject('SpotifyToken'));
             $scope.text = "LOGGED IN!";
         }
 
@@ -32,7 +32,7 @@ define([], function() {
             $window.location.replace('/');
         };
 
-        $scope.newPlaylist = "spotify-playlist-manager";
+        $scope.newPlaylist = "";
 
         $scope.createPlaylist = function(){ 
             playlistService.createPlaylist($scope.newPlaylist, $scope.playlists.selected, $scope.playlists.selectedtracks);
@@ -49,9 +49,6 @@ define([], function() {
             playlistService.getTracks($scope.playlists.selected.owner.id, $scope.playlists.selected.id).then(
             $scope.updateTracks, $scope.displayError);
         }
-
-
-
 
         $scope.getPlaylists();
 

@@ -71,7 +71,6 @@ define([], function() {
                     'Content-Type': 'application.json'
                 }
             };
-            console.log(config);
             return $http(config);
         }
 
