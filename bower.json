@@ -1,0 +1,23 @@
+{
+  "name": "spotify-playlist-manager",
+  "description": "",
+  "main": "",
+  "authors": [
+    "joshuasayavong <joshsayavong@hotmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/joshuasayavong/spotify-playlist-manager",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.9",
+    "angular-cookies": "^1.5.9",
+    "bootstrap": "^3.3.7"
+  }
+}
